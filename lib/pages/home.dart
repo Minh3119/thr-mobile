@@ -35,7 +35,8 @@ class _HomePageState extends State<HomePage> {
             floating: true,
             centerTitle: true,
             expandedHeight: 180,
-            flexibleSpace: FlexibleSpaceBar(              
+            stretch: true,
+            flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,8 +68,10 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               stretchModes: const <StretchMode>[
+                StretchMode.zoomBackground,
                 StretchMode.fadeTitle
               ],
+              background: Image.network("https://picsum.photos/500/300"),
             )
           ),
           SliverToBoxAdapter(

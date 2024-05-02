@@ -34,7 +34,15 @@ class _CategoryPreviewState extends State<CategoryPreview> {
       padding: const EdgeInsets.only(left: 5, right: 10, top: 12, bottom: 12),
       decoration: BoxDecoration(
         color: Colors.grey[900],
-        borderRadius: BorderRadius.circular(8)
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.onPrimary,
+            offset: const Offset(2, 2),
+            blurRadius: 2,
+            spreadRadius: 1.5
+          )
+        ]
       ),
       child: Row(
         children: [
@@ -54,7 +62,7 @@ class _CategoryPreviewState extends State<CategoryPreview> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
+    
                   // category title
                   Container(
                     key: headerKey,
@@ -79,7 +87,7 @@ class _CategoryPreviewState extends State<CategoryPreview> {
                     ),
                   ),
                   const SizedBox(width: 20,),
-
+    
                   // category description
                   Container(
                     constraints: BoxConstraints(

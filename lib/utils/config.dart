@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thr_client/models/models.dart';
 import 'package:thr_client/widgets/video_display.dart';
 
 class Config {
@@ -52,11 +51,11 @@ class Config {
           if (loadingProgress == null) {
             return child; // If no progress, show the child (the image)
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                    : null,
+                // value: loadingProgress.expectedTotalBytes != null
+                //     ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                //     : null,
               ),
             );
           }

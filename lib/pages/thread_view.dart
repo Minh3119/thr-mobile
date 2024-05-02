@@ -36,11 +36,12 @@ class _ThreadViewState extends State<ThreadView> {
           child: Container(
             padding: const EdgeInsets.only(top: 4),
             width: 50,
+            height: 50,
             child: const Icon(Icons.arrow_back_ios_new, size: 18,),
           ),
         ),
         title: Text(
-          "${widget.category.title}/${widget.thread.title}/",
+          "${widget.category.title}",
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w600
@@ -101,11 +102,11 @@ class _ThreadViewState extends State<ThreadView> {
                 ],
               ),
             ),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 10,),
         
             // media
             Config.getMediaWidget(widget.thread),
-            const SizedBox(height: 40,),
+            const SizedBox(height: 10,),
             Divider(color: Colors.grey[800]!),
         
             // posts / comments

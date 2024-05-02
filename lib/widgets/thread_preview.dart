@@ -14,7 +14,15 @@ class ThreadPreview extends StatelessWidget {
       padding: const EdgeInsets.only(left: 40, right: 10, top: 12, bottom: 12),
       decoration: BoxDecoration(
         color: Colors.grey[900],
-        borderRadius: BorderRadius.circular(8)
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).colorScheme.onPrimary,
+            offset: const Offset(2, 2),
+            blurRadius: 2,
+            spreadRadius: 1.5
+          )
+        ]
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
