@@ -67,7 +67,7 @@ class DataController {
     if (postIDs == null) {
       postIDs = [];
       http.Response response = await http.get(Uri.parse("${Config.apiURL}/threads/$threadID/"));
-      postIDs = jsonDecode(response.body)["result"]["posts"];      
+      postIDs = jsonDecode(response.body)["result"]["posts"];
     }
 
     List<Post> result = [];
@@ -83,6 +83,15 @@ class DataController {
     }
 
     return result;
+  }
+
+  static Future<Post> getPost(int postID) async {
+    http.Response response = await http.get(Uri.parse("${Config.apiURL}/posts/$postID/"));
+    var map = jsonDecode(response.body)["result"];
+    if (map != null) {
+      return Post.fromMap(map);
+    }
+    return Post.empty();
   }
 
   // request a delete thru api

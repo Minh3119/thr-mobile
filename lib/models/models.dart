@@ -101,14 +101,18 @@ class Category {
   String? description;
   bool deleted = false;
   List<int> threadIDs = [];
+  Map<String, dynamic>? lastActivity;
 
-  Category(this.ID, this.title, this.description, this.deleted, this.threadIDs);
+  Category(this.ID, this.title, this.description,
+       this.deleted, this.threadIDs, this.lastActivity);
   
   Category.empty();
 
   factory Category.fromMap(Map<String, dynamic> map) =>
     Category(map["id"], map["title"], map["description"],
-      map["deleted"], map["threads"].cast<int>());
+      map["deleted"], map["threads"].cast<int>(),
+      map["last_activity"]
+    );
 
   void delete() {
     deleted = true;

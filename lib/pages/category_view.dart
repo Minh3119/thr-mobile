@@ -37,13 +37,16 @@ class _CategoryViewState extends State<CategoryView> {
             child: const Icon(Icons.arrow_back_ios_new, size: 18,),
           ),
         ),
-        title: Text(
-          "/${widget.category.title}/",
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w600
-          )
-        ),
+        title: const Hero(
+          tag: "appTitle",
+          child: Text(
+            "The House",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600
+            )
+          ),
+        )
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,12 +69,26 @@ class _CategoryViewState extends State<CategoryView> {
                 const SizedBox(height: 22,),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    widget.category.description!,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300
-                    )
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${widget.category.title}",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.primary
+                        )
+                      ),
+                      Text(
+                        widget.category.description!,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                          color: Theme.of(context).colorScheme.secondary
+                        )
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -79,9 +96,10 @@ class _CategoryViewState extends State<CategoryView> {
           ),
           
           const SizedBox(height: 35,),
+          Divider(color: Colors.grey[800]!),
           Expanded(
             child: ListView.separated(
-              separatorBuilder: (_,__) => Divider(color: Colors.grey[800]!),
+              separatorBuilder: (_,__) => const SizedBox(height: 10,),
               itemCount: threadPreviews.length,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {

@@ -14,8 +14,10 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData.from(
-        colorScheme: const ColorScheme.dark(),
-        useMaterial3: true
+        colorScheme: const ColorScheme.dark(
+          //background: Colors.black
+        ),
+        useMaterial3: true,
       ),
       home: const HomePage()
     );

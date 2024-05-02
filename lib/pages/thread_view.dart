@@ -106,6 +106,7 @@ class _ThreadViewState extends State<ThreadView> {
             // media
             Config.getMediaWidget(widget.thread),
             const SizedBox(height: 40,),
+            Divider(color: Colors.grey[800]!),
         
             // posts / comments
             FutureBuilder<List<Post>>(

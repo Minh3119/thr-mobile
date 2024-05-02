@@ -10,11 +10,11 @@ class ThreadPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 40, right: 10, top: 5, bottom: 5),
-      decoration: const BoxDecoration(
-        //border: Border.all(color: Colors.white),
-        //color: Colors.grey[900]!,
-        borderRadius: BorderRadius.all(Radius.circular(8))
+      margin: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.only(left: 40, right: 10, top: 12, bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.grey[900],
+        borderRadius: BorderRadius.circular(8)
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
