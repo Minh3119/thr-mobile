@@ -22,8 +22,8 @@ class ThreadPreview extends StatelessWidget {
           Text(
             () {
               String headerPreview = thread.title!.split("\n")[0];
-              if (headerPreview.length > Config.maxPreviewChars) {
-                headerPreview = thread.title!.substring(0, Config.maxPreviewChars);
+              if (headerPreview.length > Config.threadPreviewCharsCap) {
+                headerPreview = thread.title!.substring(0, Config.threadPreviewCharsCap);
               }
               return headerPreview;
             } (),
@@ -39,8 +39,8 @@ class ThreadPreview extends StatelessWidget {
                 return "created by ${thread.author} at ${thread.creationDate}";
               }
               String bodyPreview = thread.content!.split("\n")[0];
-              if (bodyPreview.length > Config.maxPreviewChars) {
-                bodyPreview = thread.content!.substring(0, Config.maxPreviewChars);
+              if (bodyPreview.length > Config.threadPreviewCharsCap) {
+                bodyPreview = thread.content!.substring(0, Config.threadPreviewCharsCap);
               }                    
               return bodyPreview;
             } (),

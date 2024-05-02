@@ -11,11 +11,16 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      showSemanticsDebugger: false,
+      debugShowMaterialGrid: false,
+      showPerformanceOverlay: false,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData.from(
-        colorScheme: const ColorScheme.dark(
+        colorScheme: ColorScheme.dark(
           //background: Colors.black
+          primary: Colors.deepOrangeAccent,
+          secondary: Colors.brown.withGreen(100).withBlue(90)
         ),
         useMaterial3: true,
       ),

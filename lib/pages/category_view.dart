@@ -37,15 +37,12 @@ class _CategoryViewState extends State<CategoryView> {
             child: const Icon(Icons.arrow_back_ios_new, size: 18,),
           ),
         ),
-        title: const Hero(
-          tag: "appTitle",
-          child: Text(
-            "The House",
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w600
-            )
-          ),
+        title: const Text(
+          "The House",
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w600
+          )
         )
       ),
       body: Column(
@@ -56,6 +53,8 @@ class _CategoryViewState extends State<CategoryView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
+                // views
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [Text(
@@ -67,26 +66,43 @@ class _CategoryViewState extends State<CategoryView> {
                   )]
                 ),
                 const SizedBox(height: 22,),
+
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "${widget.category.title}",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.primary
-                        )
+
+                      // category title
+                      Hero(
+                        tag: widget.category.title!,
+                        child: Text(
+                          "${widget.category.title}",
+                          // style: TextStyle(
+                          //   fontSize: 22,
+                          //   fontWeight: FontWeight.w600,
+                          //   color: Theme.of(context).colorScheme.primary
+                          // )
+                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
                       ),
-                      Text(
-                        widget.category.description!,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300,
-                          color: Theme.of(context).colorScheme.secondary
-                        )
+
+                      // category description
+                      Hero(
+                        tag: widget.category.description!,
+                        child: Text(
+                          widget.category.description!,
+                          // style: TextStyle(
+                          //   fontSize: 20,
+                          //   fontWeight: FontWeight.w300,
+                          //   color: Theme.of(context).colorScheme.secondary
+                          // )
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -95,8 +111,21 @@ class _CategoryViewState extends State<CategoryView> {
             ),
           ),
           
-          const SizedBox(height: 35,),
-          Divider(color: Colors.grey[800]!),
+          const SizedBox(height: 10,),
+          //Divider(color: Colors.grey[800]!),
+
+          // posts section
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0, left:26, bottom: 10),
+            child: Text(
+              "Posts",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground.withAlpha(210),
+                fontSize: 15,
+                fontWeight: FontWeight.bold
+              )
+            ),
+          ),
           Expanded(
             child: ListView.separated(
               separatorBuilder: (_,__) => const SizedBox(height: 10,),

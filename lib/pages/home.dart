@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
             //backgroundColor: Theme.of(context).colorScheme.onPrimary,
             floating: true,
             centerTitle: true,
-            expandedHeight: 200,
+            expandedHeight: 180,
             flexibleSpace: FlexibleSpaceBar(              
               centerTitle: false,
               title: Column(
@@ -44,16 +44,13 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Hero(
-                        tag: "appTitle",
-                        child: Text(
-                          "The House",
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          )
-                        ),
+                      Text(
+                        "The House",
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        )
                       ),
                       Text(
                         "\nreloaded",
@@ -102,7 +99,7 @@ class _HomePageState extends State<HomePage> {
           
           const SliverToBoxAdapter(child: Padding(
             padding: EdgeInsets.all(30.0),
-            child: Text("client v0.1.3"),
+            child: Text("client v0.1.4"),
           ),)
         ],
       )
@@ -169,6 +166,13 @@ class _HomePageState extends State<HomePage> {
   void navigateToCategoryView(Category category) async {
     await Navigator.push(context, Config.createRoute(CategoryView(category)));
     updateCategoryPreviews();
+    // Navigator.pushReplacement(
+    //   context,
+    //   PageRouteBuilder(
+    //     pageBuilder:(context, animation, secondaryAnimation) => widget,
+    //     transitionDuration: const Duration(seconds: 0)
+    //   ),
+    // );
   }
 
   void updateCategoryPreviews() {
@@ -180,7 +184,7 @@ class _HomePageState extends State<HomePage> {
           String text = "New Category";
           if (categories[i].lastActivity != null) {
             var post = await DataController.getPost(categories[i].lastActivity!["id"]);
-            text = "last active user @${post.author} at ${post.creationDate}";
+            text = "last active user @${post.author}\nat ${post.creationDate}";
           }
           newList.add(CategoryPreview(categories[i], text));
         }

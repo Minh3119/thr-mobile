@@ -4,7 +4,8 @@ import 'package:thr_client/widgets/video_display.dart';
 
 class Config {
   static String apiURL = "https://qmass.pythonanywhere.com/api";
-  static int maxPreviewChars = 37;
+  static int categoryPreviewCharsCap = 13;
+  static int threadPreviewCharsCap = 37;
   static List<String> fileTypes = ["image", "audio", "video"];
 
   static Route createRoute(Widget page) {
