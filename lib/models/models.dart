@@ -2,6 +2,38 @@
 
 import 'package:thr_client/utils/config.dart';
 
+
+class User {
+  String name;
+  String? bio;
+  String joinDate;
+  String? pictureURL;
+  String role = "user";
+  bool deleted = false;
+  List<dynamic> recentActivities;
+
+  User(this.name, this.bio, this.joinDate,
+      //this.pictureURL,
+      this.role, this.deleted, this.recentActivities);
+  //User.empty();     this is disabled cuz User cannot be empty
+
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      map["username"],
+      map["bio"] ??= "no bio.",
+      map['joined_date'].replaceAll("T", " "),
+      map['role'],
+      map['deleted'],
+      map['recent_activities']
+    );
+  }
+
+  void delete() {
+    deleted = true;
+    // invoke api call to delete in server
+  }
+}
+
 class Post {
   int? ID;
   int? threadID;

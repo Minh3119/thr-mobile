@@ -4,6 +4,23 @@ import 'dart:convert';
 
 import 'package:thr_client/utils/config.dart';
 
+
+
+class SimpleCache {
+  // static SimpleCache? _instance;
+
+  // SimpleCache._();
+
+  // factory SimpleCache() {
+  //   _instance ??= SimpleCache._();
+  //   return _instance!;
+  // }
+
+  static Map<String, User> users = {};
+
+}
+
+
 class DataController {
   
   static Future<List<Map<String, dynamic>>> fetchCategories() async {
@@ -92,6 +109,25 @@ class DataController {
       return Post.fromMap(map);
     }
     return Post.empty();
+  }
+
+  static Future<User?> getUser(String name) async {
+    http.Response response = await http.get(Uri.parse("${Config.apiURL}/users/$name/"));
+    var body = jsonDecode(response.body);
+
+    // failed
+    if (body["error"] != null) {
+      print('Unable to fetch user with username: $name');
+      return null;
+    }
+    
+    var map = body["result"];
+    if (map != null) {
+      // success
+      SimpleCache.users[name] = User.fromMap(map);
+      return User.fromMap(map);
+    }
+    return null;
   }
 
   // request a delete thru api

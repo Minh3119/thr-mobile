@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thr_client/models/models.dart';
 import 'package:thr_client/utils/config.dart';
 import 'package:thr_client/utils/data_control.dart';
+import 'package:thr_client/widgets/mention.dart';
 import 'package:thr_client/widgets/post_display.dart';
 import 'package:thr_client/widgets/video_display.dart';
 
@@ -109,13 +110,25 @@ class _ThreadViewState extends State<ThreadView> {
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
-                  Text(
-                    "created by ${widget.thread.author!} at ${widget.thread.creationDate}",
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300
-                    )
-                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        "created by ",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300
+                        )
+                      ),
+                      UserMention(widget.thread.author!, true),
+                      Text(
+                        " at ${widget.thread.creationDate}",
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300
+                        )
+                      )
+                    ],
+                  )
                 ],
               ),
             ),

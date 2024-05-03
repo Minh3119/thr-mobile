@@ -43,23 +43,25 @@ class Config {
     return filetype;
   }
 
-  static Widget getMediaWidget(var thread) {
+  static Widget getMediaWidget(var thread) { //this could be thread or post
     if (thread.fileType == "image") {
-      return Image.network(
-        thread.attachmentURL!,
-        loadingBuilder: (context, child, loadingProgress) {                  
-          if (loadingProgress == null) {
-            return child; // If no progress, show the child (the image)
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(
-                // value: loadingProgress.expectedTotalBytes != null
-                //     ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                //     : null,
-              ),
-            );
-          }
-        },
+      return InteractiveViewer(
+        child: Image.network(
+          thread.attachmentURL!,
+          loadingBuilder: (context, child, loadingProgress) {                  
+            if (loadingProgress == null) {
+              return child; // If no progress, show the child (the image)
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(
+                  // value: loadingProgress.expectedTotalBytes != null
+                  //     ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                  //     : null,
+                ),
+              );
+            }
+          },
+        ),
       );
     } else if (thread.fileType == "audio") {
       return VideoPlayerScreen(thread.attachmentURL!, true);
@@ -68,5 +70,22 @@ class Config {
     } else {
       return const SizedBox(height: 1,);
     }
+  }
+
+  static Widget getImage(String imageURL) {
+    return InteractiveViewer(
+      child: Image.network(
+        imageURL,
+        loadingBuilder: (context, child, loadingProgress) {                  
+          if (loadingProgress == null) {
+            return child; // If no progress, show the child (the image)
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
   }
 }

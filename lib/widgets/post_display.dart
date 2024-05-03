@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:thr_client/models/models.dart';
 import 'package:thr_client/utils/config.dart';
+import 'package:thr_client/widgets/mention.dart';
 
 class PostDisplay extends StatelessWidget {
   final Post post;
@@ -14,17 +16,10 @@ class PostDisplay extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // post's number of views
+          // author + creation date
           Row(
             children: [
-              Text(
-                post.author!,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 15,
-                  //fontWeight: FontWeight.w300
-                )
-              ),
+              UserMention(post.author!, false),
               const SizedBox(width: 15,),
               Text(
                 post.creationDate!,
@@ -35,7 +30,7 @@ class PostDisplay extends StatelessWidget {
               )
             ],
           ),
-
+      
           // post's content
           Text(
             post.content!,
@@ -44,7 +39,7 @@ class PostDisplay extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-
+      
           // post's attachment / media
           Config.getMediaWidget(post)
         ],
