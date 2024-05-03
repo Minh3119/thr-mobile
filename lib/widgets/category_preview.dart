@@ -50,7 +50,7 @@ class _CategoryPreviewState extends State<CategoryPreview> {
             children: [
               Padding(
                 padding: EdgeInsets.all(12),
-                child: Icon(Icons.folder)
+                child: Icon(Icons.category_outlined)
               ),
               SizedBox(height: 15,)
             ],
