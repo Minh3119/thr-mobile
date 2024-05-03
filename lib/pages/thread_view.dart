@@ -34,9 +34,19 @@ class _ThreadViewState extends State<ThreadView> {
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
-            padding: const EdgeInsets.only(top: 4),
-            width: 50,
-            height: 50,
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey[900],
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  offset: const Offset(0.6,0.6),
+                  blurRadius: 0.35,
+                  spreadRadius: 0
+                )
+              ]
+            ),
             child: const Icon(Icons.arrow_back_ios_new, size: 18,),
           ),
         ),
@@ -85,12 +95,19 @@ class _ThreadViewState extends State<ThreadView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.thread.content!,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300
-                    )
+                  Hero(
+                    tag: "thread.title-${widget.thread.title}",
+                    child: Text(
+                      widget.thread.title!,
+                      style: Theme.of(context).textTheme.headlineMedium
+                    ),
+                  ),
+                  Hero(
+                    tag: "thread.content-${widget.thread.content}",
+                    child: Text(
+                      widget.thread.content!,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
                   ),
                   Text(
                     "created by ${widget.thread.author!} at ${widget.thread.creationDate}",

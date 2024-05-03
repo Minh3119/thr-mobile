@@ -86,7 +86,7 @@ class _CategoryViewState extends State<CategoryView> {
 
                       // category title
                       Hero(
-                        tag: widget.category.title!,
+                        tag: "category.title-${widget.category.title!}",
                         child: Text(
                           "${widget.category.title}",
                           // style: TextStyle(
@@ -94,7 +94,7 @@ class _CategoryViewState extends State<CategoryView> {
                           //   fontWeight: FontWeight.w600,
                           //   color: Theme.of(context).colorScheme.primary
                           // )
-                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                             color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
@@ -102,7 +102,7 @@ class _CategoryViewState extends State<CategoryView> {
 
                       // category description
                       Hero(
-                        tag: widget.category.description!,
+                        tag: "category.description-${widget.category.description!}",
                         child: Text(
                           widget.category.description!,
                           // style: TextStyle(
@@ -110,7 +110,7 @@ class _CategoryViewState extends State<CategoryView> {
                           //   fontWeight: FontWeight.w300,
                           //   color: Theme.of(context).colorScheme.secondary
                           // )
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
@@ -125,11 +125,11 @@ class _CategoryViewState extends State<CategoryView> {
           const SizedBox(height: 10,),
           //Divider(color: Colors.grey[800]!),
 
-          // posts section
+          // ThreadPreivews section
           Padding(
             padding: const EdgeInsets.only(top: 20.0, left:26, bottom: 10),
             child: Text(
-              "Posts",
+              "Threads",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onBackground.withAlpha(210),
                 fontSize: 15,

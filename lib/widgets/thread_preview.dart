@@ -11,7 +11,7 @@ class ThreadPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      padding: const EdgeInsets.only(left: 40, right: 10, top: 12, bottom: 12),
+      padding: const EdgeInsets.only(left: 50, right: 10, top: 12, bottom: 12),
       decoration: BoxDecoration(
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(8),
@@ -27,37 +27,41 @@ class ThreadPreview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            () {
-              String headerPreview = thread.title!.split("\n")[0];
-              if (headerPreview.length > Config.threadPreviewCharsCap) {
-                headerPreview = thread.title!.substring(0, Config.threadPreviewCharsCap);
-              }
-              return headerPreview;
-            } (),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-              fontWeight: FontWeight.w500
-            )
-          ),
-          Text(
-            () {
-              if (thread.content == null || thread.content! == "") {
-                return "created by ${thread.author} at ${thread.creationDate}";
-              }
-              String bodyPreview = thread.content!.split("\n")[0];
-              if (bodyPreview.length > Config.threadPreviewCharsCap) {
-                bodyPreview = thread.content!.substring(0, Config.threadPreviewCharsCap);
-              }                    
-              return bodyPreview;
-            } (),
-            style: TextStyle(
-              fontSize: 14,
-              color: Theme.of(context).colorScheme.onSurface,
-              fontWeight: FontWeight.w300
+
+          // thread.title
+          Hero(
+            tag: "thread.title-${thread.title}",
+            child: Text(
+              () {
+                String headerPreview = thread.title!.split("\n")[0];
+                if (headerPreview.length > Config.threadPreviewCharsCap) {
+                  headerPreview = thread.title!.substring(0, Config.threadPreviewCharsCap);
+                }
+                return headerPreview;
+              } (),
+              style: Theme.of(context).textTheme.titleMedium
             ),
           ),
+
+          // thread.content
+          Hero(
+            tag: "thread.content-${thread.content}",
+            child: Text(
+              () {
+                if (thread.content == null || thread.content! == "") {
+                  return "created by ${thread.author} at ${thread.creationDate}";
+                }
+                String bodyPreview = thread.content!.split("\n")[0];
+                if (bodyPreview.length > Config.threadPreviewCharsCap) {
+                  bodyPreview = thread.content!.substring(0, Config.threadPreviewCharsCap);
+                }                    
+                return bodyPreview;
+              } (),
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
+          ),
+
+          // comments and views
           Row(
             children: [
               // number of posts

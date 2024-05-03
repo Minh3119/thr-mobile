@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:thr_client/models/models.dart';
 import 'package:thr_client/pages/category_view.dart';
 import 'package:thr_client/utils/config.dart';
@@ -15,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<CategoryPreview> categoryPreviews = [];
+  bool _loading = true;
 
   @override
   void initState() {
@@ -87,6 +87,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          (_loading)
+           ? const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()))
+           :
           SliverList.separated(
             separatorBuilder:(_,__) => const SizedBox(height: 10,),
             itemCount: categoryPreviews.length,
@@ -195,6 +198,7 @@ class _HomePageState extends State<HomePage> {
         if (categoryPreviews != newList) {
           setState(() {
             categoryPreviews = newList;
+            _loading = false;
           },);
         }
       }

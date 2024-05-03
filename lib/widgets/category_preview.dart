@@ -71,7 +71,7 @@ class _CategoryPreviewState extends State<CategoryPreview> {
                       maxWidth: 120.0,
                     ),
                     child: Hero(
-                      tag: widget.category.title!,
+                      tag: "category.title-${widget.category.title!}",
                       child: Text(
                         widget.category.title!,
                         // style: TextStyle(
@@ -95,7 +95,7 @@ class _CategoryPreviewState extends State<CategoryPreview> {
                       maxWidth: getTextWidth(),
                     ),
                     child: Hero(
-                      tag: widget.category.description!,
+                      tag: "category.description-${widget.category.description!}",
                       child: Text(
                         widget.category.description!,
                         // style: TextStyle(
