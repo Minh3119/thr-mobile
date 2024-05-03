@@ -50,18 +50,18 @@ class UserMention extends StatelessWidget {
           }
         );
       },
-      child: Container(
-        padding: const EdgeInsets.all(2),
-        decoration: BoxDecoration(
-          color: (color)
-           ? Colors.grey[800]
-           : null,
-          borderRadius: BorderRadius.circular(5)
-        ),
-        child: Text(
-          username,
-        ),
-      ),
+      child: (color)
+       ? Container(
+          padding: const EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            color: Colors.grey[800],
+            borderRadius: BorderRadius.circular(5)
+          ),
+          child: Text(
+            username,
+          ),
+        )
+       : Text(username)
     );
   }
 

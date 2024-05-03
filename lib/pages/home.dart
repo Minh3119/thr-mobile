@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
           
           const SliverToBoxAdapter(child: Padding(
             padding: EdgeInsets.all(30.0),
-            child: Text("client v0.1.4"),
+            child: Text("client v0.1.5"),
           ),)
         ],
       )
