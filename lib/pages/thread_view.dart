@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thr_client/models/models.dart';
+import 'package:thr_client/pages/media_view.dart';
 import 'package:thr_client/utils/config.dart';
 import 'package:thr_client/utils/data_control.dart';
 import 'package:thr_client/widgets/mention.dart';
@@ -128,14 +129,32 @@ class _ThreadViewState extends State<ThreadView> {
                         )
                       )
                     ],
-                  )
+                  ),
+                  const SizedBox(height: 15,),
+        
+                  // media
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(Config.createScaleRoute(MediaView(widget.thread)));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.greenAccent, // Border color
+                          width: 2.0, // Border width
+                        ),
+                        color: Colors.grey[850],
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: const Text("Attachment",),
+                    ),
+                  ),
+
                 ],
               ),
             ),
-            const SizedBox(height: 10,),
-        
-            // media
-            Config.getMediaWidget(widget.thread),
+            
             const SizedBox(height: 10,),
             Divider(color: Colors.grey[800]!),
         

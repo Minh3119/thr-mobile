@@ -28,14 +28,17 @@ class _HomePageState extends State<HomePage> {
     //   updateCategoryPreviews();
     // }
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             //backgroundColor: Theme.of(context).colorScheme.onPrimary,
             floating: true,
-            centerTitle: true,
-            expandedHeight: 180,
-            stretch: true,
+            pinned: true,
+            expandedHeight: 200,
+            foregroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               title: Column(
@@ -64,14 +67,21 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 14,)
                 ],
               ),
               stretchModes: const <StretchMode>[
                 StretchMode.zoomBackground,
-                StretchMode.fadeTitle
+                StretchMode.fadeTitle,
+                StretchMode.zoomBackground,
               ],
-              background: Image.network("https://picsum.photos/500/300"),
+              background: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(20)
+                ),
+                child: Image.network("https://picsum.photos/600/500")
+              ),
             )
           ),
           SliverToBoxAdapter(
@@ -101,11 +111,11 @@ class _HomePageState extends State<HomePage> {
               child: categoryPreviews[index],
             )
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 50,)),
+          const SliverToBoxAdapter(child: SizedBox(height: 200,)),
           
           const SliverToBoxAdapter(child: Padding(
             padding: EdgeInsets.all(30.0),
-            child: Text("client v0.1.5"),
+            child: Text("client v0.1.6"),
           ),)
         ],
       )

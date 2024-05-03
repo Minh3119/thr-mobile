@@ -26,6 +26,28 @@ class Config {
       },
     );
   }
+  
+  static Route createScaleRoute(Widget page) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 500),
+      reverseTransitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return ScaleTransition(
+          scale: Tween<double>(
+            begin: 0.0,
+            end: 1.0,
+          ).animate(
+            CurvedAnimation(
+              parent: animation,
+              curve: Curves.linearToEaseOut,
+            ),
+          ),
+          child: child,
+        );
+      },
+    );
+  }
 
   static String? getFiletype(String? attachmentURL) {
     String? filetype;
