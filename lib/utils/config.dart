@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thr_client/utils/data_control.dart';
 import 'package:thr_client/widgets/video_display.dart';
 
 class Config {
@@ -67,24 +68,7 @@ class Config {
 
   static Widget getMediaWidget(var thread) { //this could be thread or post
     if (thread.fileType == "image") {
-      return InteractiveViewer(
-        child: Image.network(
-          thread.attachmentURL!,
-          loadingBuilder: (context, child, loadingProgress) {                  
-            if (loadingProgress == null) {
-              return child; // If no progress, show the child (the image)
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(
-                  // value: loadingProgress.expectedTotalBytes != null
-                  //     ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                  //     : null,
-                ),
-              );
-            }
-          },
-        ),
-      );
+      return getImage(thread.attachmentURL!);
     } else if (thread.fileType == "audio") {
       return VideoPlayerScreen(thread.attachmentURL!, true);
     } else if (thread.fileType == "video") {
@@ -96,18 +80,26 @@ class Config {
 
   static Widget getImage(String imageURL) {
     return InteractiveViewer(
-      child: Image.network(
-        imageURL,
-        loadingBuilder: (context, child, loadingProgress) {                  
-          if (loadingProgress == null) {
-            return child; // If no progress, show the child (the image)
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+      child: () {
+        if (SimpleCache.attachments.containsKey(imageURL)) {
+          return SimpleCache.attachments[imageURL]!;
+        } else {
+          Image image = Image.network(
+            imageURL,
+            loadingBuilder: (context, child, loadingProgress) {                  
+              if (loadingProgress == null) {
+                return child; // If no progress, show the child (the image)
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          );
+          SimpleCache.attachments[imageURL] = image;
+          return image;
+        }
+      } ()
     );
   }
 }

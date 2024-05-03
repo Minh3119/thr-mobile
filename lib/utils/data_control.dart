@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:thr_client/models/models.dart';
 import 'dart:convert';
@@ -16,7 +17,9 @@ class SimpleCache {
   //   return _instance!;
   // }
 
-  static Map<String, User> users = {};
+  static Map<String, User> users = {};    // username : User
+  static Map<int, Post> posts = {};   // postID : Post
+  static Map<String, Image> attachments = {};   // attachment_url : Image
 
 }
 
@@ -89,10 +92,16 @@ class DataController {
 
     List<Post> result = [];
     for (int i=0; i<postIDs!.length; i++) {
+      if (SimpleCache.posts.containsKey(postIDs[i])) {
+        result.add(SimpleCache.posts[postIDs[i]]!);
+        continue;
+      }
       http.Response response = await http.get(Uri.parse("${Config.apiURL}/posts/${postIDs[i]}/"));
       var body = jsonDecode(response.body);
       if (body["error"] == null) {
-        result.add(Post.fromMap(body["result"]));
+        Post post = Post.fromMap(body["result"]);
+        SimpleCache.posts[postIDs[i]] = post;
+        result.add(post);
       }
       else {
         throw 'Error in getCategories: ${body["error"]}';
@@ -106,7 +115,9 @@ class DataController {
     http.Response response = await http.get(Uri.parse("${Config.apiURL}/posts/$postID/"));
     var map = jsonDecode(response.body)["result"];
     if (map != null) {
-      return Post.fromMap(map);
+      Post post = Post.fromMap(map);
+      SimpleCache.posts[postID] = post;
+      return post;
     }
     return Post.empty();
   }

@@ -19,13 +19,11 @@ class ThreadView extends StatefulWidget {
 
 class _ThreadViewState extends State<ThreadView> {
   List<PostDisplay> postDisplays = [];
-  late Future<List<Post>> _futurePosts;
 
   @override
   void initState() {
     super.initState();
     //updatePostDisplays();
-    _futurePosts = DataController.getPosts(widget.thread.ID!, postIDs: widget.thread.postIDs);
   }
 
   @override
@@ -132,8 +130,10 @@ class _ThreadViewState extends State<ThreadView> {
                   ),
                   const SizedBox(height: 15,),
         
-                  // media
-                  GestureDetector(
+                  // media / attachment button
+                  (widget.thread.attachmentURL == null)
+                   ? const SizedBox(height: 1,)
+                   : GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(Config.createScaleRoute(MediaView(widget.thread)));
                     },
@@ -160,7 +160,7 @@ class _ThreadViewState extends State<ThreadView> {
         
             // posts / comments
             FutureBuilder<List<Post>>(
-              future: _futurePosts,
+              future: DataController.getPosts(widget.thread.ID!, postIDs: widget.thread.postIDs),
               builder: (c, AsyncSnapshot<List<Post>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(
