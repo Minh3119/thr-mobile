@@ -122,6 +122,7 @@ class UserMention extends StatelessWidget {
             ],
           )
         ),
+        const SizedBox(height: 8,),
       ],
     ),
   );
