@@ -13,7 +13,7 @@ class User {
   List<dynamic> recentActivities;
 
   User(this.name, this.bio, this.joinDate,
-      //this.pictureURL,
+      this.pictureURL,
       this.role, this.deleted, this.recentActivities);
   //User.empty();     this is disabled cuz User cannot be empty
 
@@ -22,6 +22,7 @@ class User {
       map["username"],
       map["bio"] ??= "no bio.",
       map['joined_date'].replaceAll("T", " "),
+      map["picture_url"],
       map['role'],
       map['deleted'],
       map['recent_activities']

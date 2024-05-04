@@ -15,40 +15,7 @@ class UserMention extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showModalBottomSheet(
-          context: context,
-          constraints: const BoxConstraints(minWidth: 500),
-          backgroundColor: Colors.grey[900],
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(30))
-          ),
-          barrierColor: Colors.black87.withOpacity(0.5),
-          builder: (context) {
-            if (SimpleCache.users.containsKey(username)) {
-              return buildSheet(context, SimpleCache.users[username]!);
-            }
-            return FutureBuilder<User?>(
-              future: DataController.getUser(username), 
-              builder: (c, AsyncSnapshot<User?> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    return buildSheet(context, snapshot.data!);
-                  } else {
-                    return const Center(child: Text("Unable to fetch user profile."));
-                  }                  
-                } else if (snapshot.hasError) {
-                  return Text("Error: ${snapshot.error}");
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      color: Theme.of(context).colorScheme.onSurface
-                    )
-                  );
-                }                
-              }
-            );
-          }
-        );
+        showSheet(context);
       },
       child: (color)
        ? Container(
@@ -65,15 +32,57 @@ class UserMention extends StatelessWidget {
     );
   }
 
+  void showSheet(var context) {
+    showModalBottomSheet(
+      context: context,
+      elevation: 0,
+      //constraints: const BoxConstraints(minWidth: 500, minHeight: 600, maxHeight: double.infinity),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(30))
+      ),
+      barrierColor: Colors.black87.withOpacity(0.5),
+      enableDrag: true,
+      isDismissible: true,
+      useSafeArea: true,
+      builder: (context) {
+        if (SimpleCache.users.containsKey(username)) {
+          return buildSheet(context, SimpleCache.users[username]!);
+        }
+        return FutureBuilder<User?>(
+          future: DataController.getUser(username), 
+          builder: (c, AsyncSnapshot<User?> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                return buildSheet(context, snapshot.data!);
+              } else {
+                return const Center(child: Text("Unable to fetch user profile."));
+              }                  
+            } else if (snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            } else {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.onSurface
+                )
+              );
+            }                
+          }
+        );
+      }
+    );
+  }
+
   Widget buildSheet(BuildContext context, User user) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Icon(Icons.horizontal_rule_rounded, size: 30),
         (user.pictureURL == null)
           ? const SizedBox(height: 1)
-          : Config.getImage(user.pictureURL!),
+          : Flexible(child: Config.getImage(user.pictureURL!)),
         const SizedBox(height: 10,),
         Container(
           padding: const EdgeInsets.all(20),
@@ -113,10 +122,6 @@ class UserMention extends StatelessWidget {
             ],
           )
         ),
-        const SizedBox(height: 10,),
-        (user.pictureURL == null) 
-          ? const SizedBox(height: 11,)
-          : Config.getImage(user.pictureURL!)
       ],
     ),
   );

@@ -30,6 +30,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
+        elevation: 0,
+        surfaceTintColor: Theme.of(context).colorScheme.background,
       ),
       body: CustomScrollView(
         slivers: [
@@ -39,6 +41,8 @@ class _HomePageState extends State<HomePage> {
             pinned: true,
             expandedHeight: 200,
             foregroundColor: Colors.white,
+            elevation: 0,
+            surfaceTintColor: Theme.of(context).colorScheme.background,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               title: Column(
