@@ -2,10 +2,23 @@
 
 import 'package:thr_client/utils/config.dart';
 
+class InboxInfo {
+  late Post userPost;
+  late Post replyPost;
+
+  InboxInfo(this.userPost, this.replyPost);
+  // InboxInfo.fromMap(Map<String, dynamic> map) {
+  //   replyPost = Post.fromMap(map);
+  //   DataController.getPost(userPost.replyingToPostID!).then(
+  //     (value) => userPost = value,
+  //   );
+  // }
+}
+
 
 class User {
   String name;
-  String? bio;
+  String bio;
   String joinDate;
   String? pictureURL;
   String role = "user";

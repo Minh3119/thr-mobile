@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thr_client/models/models.dart';
 import 'package:thr_client/utils/config.dart';
 import 'package:thr_client/utils/data_control.dart';
+import 'package:thr_client/widgets/user_profile.dart';
 
 
 
@@ -75,55 +76,6 @@ class UserMention extends StatelessWidget {
 
   Widget buildSheet(BuildContext context, User user) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Icon(Icons.horizontal_rule_rounded, size: 30),
-        (user.pictureURL == null)
-          ? const SizedBox(height: 1)
-          : Flexible(child: Config.getImage(user.pictureURL!)),
-        const SizedBox(height: 10,),
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.greenAccent, // Border color
-              width: 2.0, // Border width
-            ),
-            color: Colors.grey[900],
-            borderRadius: BorderRadius.circular(15)
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("@${user.name}", style: Theme.of(context).textTheme.titleSmall,),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: BoxDecoration(
-                      color: (user.role == "admin")
-                        ? Colors.redAccent
-                        : Colors.grey,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    child: Text(user.role, style: Theme.of(context).textTheme.titleSmall,)
-                  )
-                ],
-              ),
-              const SizedBox(height: 12,),
-              Text("'${user.bio}'", style: Theme.of(context).textTheme.headlineSmall,),
-              const SizedBox(height: 15,),
-              Text("joined at: ${user.joinDate}"),
-              const SizedBox(height: 5,),
-              Text("${user.recentActivities.length} activities"),                            
-            ],
-          )
-        ),
-        const SizedBox(height: 8,),
-      ],
-    ),
+    child: UserProfileCombined(user)
   );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thr_client/utils/data_control.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
@@ -17,13 +18,19 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(widget.url),
-    )..initialize().then((_) {
-        setState(() {});
-      });
-    _controller.setVolume(1.0);
-    _controller.addListener(() {setState(() {});});    
+    if (SimpleCache.mediaControllers.containsKey(widget.url)) {
+      _controller = SimpleCache.mediaControllers[widget.url]!;
+    } else {
+      _controller = VideoPlayerController.networkUrl(
+        Uri.parse(widget.url),
+      )..initialize().then((_) {
+          setState(() {});
+        });
+      _controller.setVolume(1.0);
+      _controller.addListener(() {setState(() {});});
+      SimpleCache.mediaControllers[widget.url] = _controller;
+    }
+    
   }
 
   @override
@@ -95,6 +102,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    //_controller.dispose();
   }
 }

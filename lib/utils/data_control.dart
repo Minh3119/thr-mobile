@@ -4,6 +4,8 @@ import 'package:thr_client/models/models.dart';
 import 'dart:convert';
 
 import 'package:thr_client/utils/config.dart';
+import 'package:thr_client/widgets/video_display.dart';
+import 'package:video_player/video_player.dart';
 
 
 
@@ -20,6 +22,14 @@ class SimpleCache {
   static Map<String, User> users = {};    // username : User
   static Map<int, Post> posts = {};   // postID : Post
   static Map<String, Image> attachments = {};   // attachment_url : Image
+  static Map<String, VideoPlayerController> mediaControllers = {};
+
+  static void disposeAllMediaControllers() {
+    var list = mediaControllers.values.toList();
+    list.map((e) {
+      e.dispose();
+    },);
+  }
 
 }
 
@@ -139,6 +149,75 @@ class DataController {
       return User.fromMap(map);
     }
     return null;
+  }
+
+  static Future<String?> whoami(String token) async {
+    http.Response response = await http.get(
+      Uri.parse("${Config.apiURL}/whoami/"),
+      headers: {"Authorization": token}
+    );
+    var body = jsonDecode(response.body);
+    if (body["error"] == null) {
+      return body["result"];
+    }
+    return null;
+  }
+
+  static Future<bool> updateSettings({
+    String? newBio,
+  }) async {
+    print("token = ${Config.token!}");
+    if (newBio == null) {
+      return false;
+    }
+    Map<String, dynamic> requestBody = {
+      "bio": newBio
+    };
+    http.Response response =  await http.post(
+      Uri.parse("${Config.apiURL}/settings/"),
+      headers: {
+        "Authorization": Config.token!,
+      },
+      body: requestBody,
+    );
+    if (response.statusCode != 200) {
+      throw "Error in DataController.updateSettings: statusCode=${response.statusCode} headers=${response.headers}";
+    }
+
+    // fetch new User data (mostly for new bio)
+    Config.loggedinAccount = await getUser(Config.loggedinAccount!.name);
+    return true;
+
+  }
+
+  static Future<List<InboxInfo>> getInboxes(String? token) async {
+    token ??= Config.token;
+
+    http.Response response = await http.get(
+      Uri.parse("${Config.apiURL}/inbox"),
+      headers: {
+        "Authorization": token!,
+      }
+    );
+    if (response.statusCode != 200) {
+      throw "Error in DataController.getInboxes: statusCode=${response.statusCode} headers=${response.headers}";
+    }
+    Map<String, dynamic> body = jsonDecode(response.body);
+    if (body["error"] != null) {
+      throw "Error in DataController.getInboxses: error=${body['error']}";
+    }
+
+    List<InboxInfo> returnList = [];
+    for (int i=0; i<body["result"]!.length; i++) {
+      //InboxInfo newInboxInfo = InboxInfo.fromMap(body["result"]![i]);
+
+      InboxInfo newInboxInfo = InboxInfo(
+        await getPost(body["result"]![i]["replying_to"]), 
+        Post.fromMap(body["result"]![i])
+      );
+      returnList.add(newInboxInfo);
+    }
+    return returnList;
   }
 
   // request a delete thru api

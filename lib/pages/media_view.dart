@@ -11,6 +11,7 @@ class MediaView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        surfaceTintColor: Theme.of(context).colorScheme.background,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(

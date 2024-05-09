@@ -31,6 +31,7 @@ class _ThreadViewState extends State<ThreadView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        surfaceTintColor: Theme.of(context).colorScheme.background,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
@@ -200,11 +201,9 @@ class _ThreadViewState extends State<ThreadView> {
         for (int i=0; i<posts.length; i++) {
           newList.add(PostDisplay(posts[i]));
         }
-        if (postDisplays != newList) {
-          setState(() {
-            postDisplays = newList;
-          });
-        }
+        setState(() {
+          postDisplays = newList;
+        });
       }
     );
   }

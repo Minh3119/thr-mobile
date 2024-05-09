@@ -29,6 +29,7 @@ class _CategoryViewState extends State<CategoryView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        surfaceTintColor: Theme.of(context).colorScheme.background,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
@@ -169,12 +170,10 @@ class _CategoryViewState extends State<CategoryView> {
         List<ThreadPreview> newList = [];
         for (int i=0; i<threads.length; i++) {
           newList.add(ThreadPreview(threads[i]));
-        }
-        if (threadPreviews != newList) {
-          setState(() {
-            threadPreviews = newList;
-          },);
-        }
+        }        
+        setState(() {
+          threadPreviews = newList;
+        },);        
       }
     );
   }

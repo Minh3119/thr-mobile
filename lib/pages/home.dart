@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thr_client/models/models.dart';
 import 'package:thr_client/pages/category_view.dart';
+import 'package:thr_client/pages/inbox_view.dart';
+import 'package:thr_client/pages/setting_view.dart';
 import 'package:thr_client/utils/config.dart';
 import 'package:thr_client/utils/data_control.dart';
 import 'package:thr_client/widgets/category_preview.dart';
@@ -32,6 +34,50 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         surfaceTintColor: Theme.of(context).colorScheme.background,
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(Config.createRoute(const InboxView())),
+            child: Container(
+              margin: const EdgeInsets.all(2),
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    offset: const Offset(0.6,0.6),
+                    blurRadius: 0.35,
+                    spreadRadius: 0
+                  )
+                ]
+              ),
+              child: const Icon(Icons.inbox_rounded, size: 22,),
+            ),
+          ),
+          const SizedBox(width: 10,),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(Config.createRoute(const SettingView())),
+            child: Container(
+              margin: const EdgeInsets.all(2),
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    offset: const Offset(0.6,0.6),
+                    blurRadius: 0.35,
+                    spreadRadius: 0
+                  )
+                ]
+              ),
+              child: const Icon(Icons.person, size: 22,),
+            ),
+          ),
+          const SizedBox(width: 10,)
+        ],
       ),
       body: CustomScrollView(
         slivers: [
@@ -177,7 +223,7 @@ class _HomePageState extends State<HomePage> {
             )
           ),
         ),
-        const Text("client v0.1.3"),
+        const Text("client v0.2"),
       ],
     ),
   );
@@ -208,14 +254,18 @@ class _HomePageState extends State<HomePage> {
           }
           newList.add(CategoryPreview(categories[i], text));
         }
-        // update the previews
-        if (categoryPreviews != newList) {
-          setState(() {
-            categoryPreviews = newList;
-            _loading = false;
-          },);
-        }
+        // update the previews        
+        setState(() {
+          categoryPreviews = newList;
+          _loading = false;
+        },);
       }
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    SimpleCache.disposeAllMediaControllers();
   }
 }

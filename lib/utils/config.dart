@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thr_client/models/models.dart';
 import 'package:thr_client/utils/data_control.dart';
 import 'package:thr_client/widgets/video_display.dart';
 
@@ -7,6 +8,10 @@ class Config {
   static int categoryPreviewCharsCap = 13;
   static int threadPreviewCharsCap = 37;
   static List<String> fileTypes = ["image", "audio", "video"];
+  static bool useTestToken = false;
+  static String testToken = "5e80ab50-0ca0-44e4-a43c-8637aab3a34e";
+  static String? token;
+  static User? loggedinAccount;
 
   static Route createRoute(Widget page) {
     return PageRouteBuilder(
@@ -74,7 +79,7 @@ class Config {
     } else if (thread.fileType == "video") {
       return VideoPlayerScreen(thread.attachmentURL!, false);
     } else {
-      return const SizedBox(height: 1,);
+      return const SizedBox(height: 0,);
     }
   }
 
