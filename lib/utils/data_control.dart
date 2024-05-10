@@ -4,20 +4,11 @@ import 'package:thr_client/models/models.dart';
 import 'dart:convert';
 
 import 'package:thr_client/utils/config.dart';
-import 'package:thr_client/widgets/video_display.dart';
 import 'package:video_player/video_player.dart';
 
 
 
 class SimpleCache {
-  // static SimpleCache? _instance;
-
-  // SimpleCache._();
-
-  // factory SimpleCache() {
-  //   _instance ??= SimpleCache._();
-  //   return _instance!;
-  // }
 
   static Map<String, User> users = {};    // username : User
   static Map<int, Post> posts = {};   // postID : Post

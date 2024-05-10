@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         surfaceTintColor: Theme.of(context).colorScheme.background,
         actions: [
           GestureDetector(
-            onTap: () => Navigator.of(context).push(Config.createRoute(const InboxView())),
+            onTap: () => Navigator.of(context).push(Config.createRoute(InboxView())),
             child: Container(
               margin: const EdgeInsets.all(2),
               padding: const EdgeInsets.all(8),
@@ -126,11 +126,18 @@ class _HomePageState extends State<HomePage> {
               ],
               background: Container(
                 padding: const EdgeInsets.all(2),
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(20)
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(18)
                 ),
-                child: Image.network("https://picsum.photos/600/500")
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Image.network(
+                  "https://picsum.photos/700/350",
+                  fit: BoxFit.cover, // Ensure the image covers the entire container
+                  width: double.infinity,
+                  
+                )
               ),
             )
           ),
@@ -165,68 +172,11 @@ class _HomePageState extends State<HomePage> {
           
           const SliverToBoxAdapter(child: Padding(
             padding: EdgeInsets.all(30.0),
-            child: Text("client v0.1.6"),
+            child: Text("client v0.2.1"),
           ),)
         ],
       )
     );
-  }
-
-  Scaffold homeBuild1() {
-    return Scaffold(
-    appBar: AppBar(
-      actions: [
-        Container(
-          padding: const EdgeInsets.only(top: 4),
-          width: 50,
-          child: const Icon(Icons.account_circle)
-        )
-      ],
-      elevation: 0,
-    ),
-    body: Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 20.0, right: 15.0, bottom: 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "The House",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w600
-                )
-              ),
-              Text(
-                "\nreloaded",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w300
-                )
-              )
-            ],
-          ),
-        ),
-        const SizedBox(height: 40,),
-        Expanded(
-          child: ListView.separated(
-            separatorBuilder:(_,__) => Divider(color: Colors.grey[800]!),
-            itemCount: categoryPreviews.length,
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                // moves to CategoryView
-                navigateToCategoryView(categoryPreviews[index].category);
-              },
-              child: categoryPreviews[index],
-            )
-          ),
-        ),
-        const Text("client v0.2"),
-      ],
-    ),
-  );
   }
 
   void navigateToCategoryView(Category category) async {
@@ -250,7 +200,7 @@ class _HomePageState extends State<HomePage> {
           String text = "New Category";
           if (categories[i].lastActivity != null) {
             var post = await DataController.getPost(categories[i].lastActivity!["id"]);
-            text = "last active user @${post.author}\nat ${post.creationDate}";
+            text = "last active user ~${post.author}\nat ${post.creationDate}";
           }
           newList.add(CategoryPreview(categories[i], text));
         }

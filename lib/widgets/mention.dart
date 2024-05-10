@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:thr_client/models/models.dart';
-import 'package:thr_client/utils/config.dart';
 import 'package:thr_client/utils/data_control.dart';
 import 'package:thr_client/widgets/user_profile.dart';
 

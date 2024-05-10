@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:thr_client/models/models.dart';
 import 'package:thr_client/utils/config.dart';
 import 'package:thr_client/utils/data_control.dart';
@@ -40,6 +39,25 @@ class _SettingViewState extends State<SettingView> {
          : const Text("Settings"),
         centerTitle: true,
         surfaceTintColor: Theme.of(context).colorScheme.background,
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey[900],
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  offset: const Offset(0.6,0.6),
+                  blurRadius: 0.35,
+                  spreadRadius: 0
+                )
+              ]
+            ),
+            child: const Icon(Icons.arrow_back_ios_new, size: 18,),
+          ),
+        ),
       ),
       body: (Config.loggedinAccount == null)
        ? loginScreen(context)

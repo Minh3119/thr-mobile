@@ -46,7 +46,7 @@ class UserInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("@${user.name}", style: Theme.of(context).textTheme.titleSmall,),
+              Text("~${user.name}", style: Theme.of(context).textTheme.titleSmall,),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 decoration: BoxDecoration(
