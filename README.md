@@ -4,7 +4,8 @@ A new Flutter project.
 
 ## Installation
 1. clone this repo
-2. Configure Android Device for testing:
+2. Do `flutter build apk` and download, install that apk on ur phone or:
+3. Configure Android Device for testing:
 
     1. Emulator:
 
@@ -20,6 +21,6 @@ A new Flutter project.
 
         - go to **Developer Options** on ur phone, enable **"USB Debugging"** & **"Install via USB"**
 
-3.  Then ur **good** to go, go back to **vscode** or notepad or **whatever**, do `flutter run` in terminal from the root of this directory
+4.  Then ur **good** to go, go back to **vscode** or notepad or **whatever**, do `flutter run` in terminal from the root of this directory
 
 
